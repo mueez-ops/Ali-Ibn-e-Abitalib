@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ali ibn-e-Abitalib Islamic Institute — Quetta, Pakistan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="icon" href="logo/Madrasa-Logo-3.png">
+  <style>
+    /* ═══════════════════════════════════════
+       TOKENS & RESET
+    ═══════════════════════════════════════ */
+    :root {
+      --teal:       #6EC6B8;
+      --teal-dk:    #4AADA0;
+      --teal-lt:    #EBF8F6;
+      --teal-mid:   #D4F0EC;
+      --blue:       #7EC8E3;
+      --blue-lt:    #EBF6FB;
+      --gold:       #C8A96A;
+      --gold-lt:    #FAF4E8;
+      --gold-dk:    #A8893A;
+      --bg:         #F8FAF9;
+      --surface:    #FFFFFF;
+      --navy:       #1A2E35;
+      --text:       #2C3E35;
+      --muted:      #6B8A80;
+      --border:     rgba(110,198,184,0.18);
+      --radius-sm:  8px;
+      --radius-md:  14px;
+      --radius-lg:  22px;
+      --radius-xl:  32px;
+      --shadow-xs:  0 1px 4px rgba(26,46,53,0.06);
+      --shadow-sm:  0 2px 12px rgba(26,46,53,0.08);
+      --shadow-md:  0 6px 28px rgba(26,46,53,0.10);
+      --shadow-lg:  0 16px 56px rgba(26,46,53,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ═══════════════════════════════════════
+       NAVBAR
+    ═══════════════════════════════════════ */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      background: rgba(248,250,249,0.88);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-bottom: 1px solid rgba(110,198,184,0.14);
+      transition: box-shadow .35s ease, background .35s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(255,255,255,0.96);
+      box-shadow: 0 2px 20px rgba(26,46,53,0.09);
+    }
+    .nav-wrap {
+      max-width: 1180px; margin: 0 auto;
+      padding: 0 32px;
+      height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    /* Logo */
+    .brand {
+      display: flex; align-items: center; gap: 2px; flex-shrink: 0;
+    }
+    .brand-mark {
+      width: 100px; height: 100px;
+      display: flex; align-items: center; justify-content: center;
+      background-size: contain;
+      background-image: url(logo/Madrasa-Logo-3.png);
+      
+    }
+    /* .brand-mark svg { width: 24px; height: 24px; fill: #fff; } */
+    .brand-text { line-height: 1.2; }
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.98rem; font-weight: 700;
+      color: var(--navy); letter-spacing: 0.2px;
+    }
+    .brand-sub {
+      font-size: 0.65rem; font-weight: 500;
+      color: var(--teal-dk); letter-spacing: 1.8px;
+      text-transform: uppercase; margin-top: 1px;
+    }
+    /* Desktop links */
+    .nav-menu { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .nav-menu a {
+      font-size: 0.84rem; font-weight: 500; color: var(--muted);
+      padding: 7px 16px; border-radius: var(--radius-sm);
+      transition: color .2s, background .2s;
+      letter-spacing: 0.1px;
+    }
+    .nav-menu a:hover { color: var(--teal-dk); background: var(--teal-lt); }
+    .nav-menu a.active { color: var(--teal-dk); background: var(--teal-lt); font-weight: 600; }
+    .nav-cta {
+      margin-left: 10px;
+      background: var(--teal); color: #fff !important;
+      padding: 9px 22px !important; border-radius: 50px !important;
+      font-weight: 600 !important; font-size: 0.84rem !important;
+      box-shadow: 0 4px 16px rgba(110,198,184,0.36);
+      transition: background .2s, transform .2s, box-shadow .2s !important;
+    }
+    .nav-cta:hover {
+      background: var(--teal-dk) !important; color: #fff !important;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(110,198,184,0.44) !important;
+    }
+    /* Hamburger */
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 6px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--navy); border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none; flex-direction: column;
+      background: rgba(255,255,255,0.98);
+      border-top: 1px solid var(--border);
+      padding: 12px 24px 20px;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      font-size: 0.92rem; font-weight: 500; color: var(--text);
+      padding: 13px 0; border-bottom: 1px solid rgba(110,198,184,0.1);
+      transition: color .2s;
+    }
+    .nav-drawer a:last-child { border-bottom: none; }
+    .nav-drawer a:hover { color: var(--teal-dk); }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    #home {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 140px 32px 100px;
+    }
+    /* Layered background */
+    .hero-canvas {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 15% 25%, rgba(110,198,184,0.30) 0%, transparent 62%),
+        radial-gradient(ellipse 55% 50% at 88% 75%, rgba(126,200,227,0.25) 0%, transparent 58%),
+        radial-gradient(ellipse 40% 45% at 55% 5%,  rgba(200,169,106,0.20) 0%, transparent 55%),
+        #F8FAF9;
+    }
+    /* Soft geometric ornament (top-right) */
+    .hero-ornament {
+      position: absolute; top: 80px; right: -60px; width: 460px; height: 460px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, rgba(110,198,184,0.20) 0%, rgba(126,200,227,0.15) 25%, rgba(200,169,106,0.05) 50%, transparent 75%);
+      animation: spin-slow 40s linear infinite;
+      pointer-events: none;
+    }
+    .hero-ornament-inner {
+      position: absolute; top: 140px; right: 0px; width: 300px; height: 300px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(110,198,184,0.14);
+      pointer-events: none;
+    }
+    /* dot grid texture */
+    .hero-texture {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(110,198,184,0.60) 1px, transparent 1px);
+      background-size: 38px 38px;
+      opacity: 0.5;
+    }
+    .hero-body {
+      position: relative; z-index: 2;
+      max-width: 780px; margin: 0 auto; text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 50px; padding: 6px 18px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 2.2px;
+      text-transform: uppercase; color: var(--teal-dk);
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-xs);
+      animation: hero-in .9s ease both;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 3px rgba(110,198,184,0.25);
+      animation: pulse-ring 2.4s ease infinite;
+    }
+    .hero-arabic {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      color: var(--gold-dk);
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+      opacity: 0; animation: hero-in .9s .15s ease forwards;
+    }
+    .hero-rule {
+      width: 44px; height: 2px; margin: 0 auto 22px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0; animation: hero-in .9s .25s ease forwards;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.1rem, 5.5vw, 3.6rem);
+      font-weight: 700; line-height: 1.18;
+      color: var(--navy); margin-bottom: 22px;
+      opacity: 0; animation: hero-in .9s .35s ease forwards;
+    }
+    .hero-title .highlight {
+      color: var(--teal-dk);
+      font-style: italic;
+    }
+    .hero-sub {
+      font-size: 1.02rem; font-weight: 300; color: var(--muted);
+      max-width: 540px; margin: 0 auto 46px;
+      line-height: 1.9;
+      opacity: 0; animation: hero-in .9s .48s ease forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+      opacity: 0; animation: hero-in .9s .6s ease forwards;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Poppins', sans-serif; font-weight: 600;
+      font-size: 0.88rem; letter-spacing: 0.3px;
+      padding: 14px 34px; border-radius: 50px; border: none;
+      cursor: pointer; transition: transform .22s, box-shadow .22s, background .22s;
+      text-decoration: none;
+    }
+    .btn-solid {
+      background: linear-gradient(135deg, var(--teal), var(--teal-dk));
+      color: #fff;
+      box-shadow: 0 6px 22px rgba(110,198,184,0.38);
+    }
+    .btn-solid:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(110,198,184,0.48); }
+    .btn-ghost {
+      background: transparent; color: var(--navy);
+      border: 1.5px solid rgba(26,46,53,0.18);
+    }
+    .btn-ghost:hover { background: var(--teal-lt); border-color: var(--teal); color: var(--teal-dk); transform: translateY(-2px); }
+    .hero-scroll-cue {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      z-index: 2; opacity: 0; animation: hero-in .9s .8s ease forwards;
+    }
+    .scroll-pill {
+      width: 26px; height: 42px;
+      border: 2px solid rgba(110,198,184,0.3); border-radius: 13px;
+      display: flex; align-items: flex-start; justify-content: center; padding-top: 6px;
+    }
+    .scroll-nub {
+      width: 4px; height: 9px; border-radius: 3px;
+      background: var(--teal);
+      animation: scroll-nub 2s ease-in-out infinite;
+    }
+
+    /* ═══════════════════════════════════════
+       STATS STRIP
+    ═══════════════════════════════════════ */
+    .stats-strip {
+      background: linear-gradient(130deg, var(--navy) 0%, #243a43 100%);
+      padding: 56px 32px;
+    }
+    .stats-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-cell {
+      text-align: center; padding: 16px 24px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; font-weight: 700; line-height: 1;
+      color: var(--teal); margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.72rem; font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 2px; text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════
+       SHARED SECTION STYLES
+    ═══════════════════════════════════════ */
+    .section { padding: 108px 32px; }
+    .section-light { background: var(--bg); }
+    .section-white { background: var(--surface); }
+    .section-tinted { background: var(--teal-lt); }
+    .section-navy {
+      background: linear-gradient(150deg, var(--navy) 0%, #243a43 100%);
+    }
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--teal-dk); margin-bottom: 12px;
+    }
+    .section-label-light { color: rgba(110,198,184,0.8); }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.85rem, 3.8vw, 2.8rem);
+      font-weight: 700; line-height: 1.22;
+      color: var(--navy); margin-bottom: 14px;
+    }
+    .section-heading-light { color: #fff; }
+    .section-lead {
+      font-size: 1rem; font-weight: 300;
+      color: var(--muted); max-width: 520px;
+      line-height: 1.88;
+    }
+    .section-lead-light { color: rgba(255,255,255,0.6); }
+    .divider-bar {
+      width: 40px; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+      border-radius: 2px; margin-bottom: 16px;
+    }
+    .divider-bar-gold { background: linear-gradient(90deg, var(--gold), var(--gold-dk)); }
+    .section-header-block { margin-bottom: 64px; }
+    .section-header-center { text-align: center; }
+    .section-header-center .divider-bar { margin: 0 auto 16px; }
+    .section-header-center .section-lead { margin: 0 auto; }
+
+    /* ═══════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════ */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid; grid-template-columns: 6fr 5fr;
+      gap: 80px; align-items: center;
+    }
+    /* Visual panel */
+    .about-visual { position: relative; }
+    .about-card {
+      width: 100%; aspect-ratio: 4/3.3;
+      background: linear-gradient(150deg, var(--teal-lt) 0%, var(--teal-mid) 100%);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(110,198,184,0.22);
+      overflow: hidden; position: relative;
+      box-shadow: var(--shadow-lg);
+    }
+    .about-card-pattern {
+      position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(45deg, rgba(110,198,184,0.07) 0px, rgba(110,198,184,0.07) 1px, transparent 1px, transparent 28px),
+        repeating-linear-gradient(-45deg, rgba(110,198,184,0.07) 0px, rgba(110,198,184,0.07) 1px, transparent 1px, transparent 28px);
+    }
+    .about-card-center {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background-position: center;
+      background-size: cover;
+      background-image: url(madrasa-cover-photo/cover-2.jpg);
+    }
+    .about-mosque-icon {
+      width: 110px; height: 110px; opacity: 0.18;
+    }
+    .about-badge {
+      position: absolute; bottom: -18px; right: 28px;
+      background: var(--gold);
+      color: #fff;
+      font-size: 0.8rem; font-weight: 600;
+      padding: 12px 22px; border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(200,169,106,0.38);
+      white-space: nowrap;
+    }
+    .about-pill {
+      position: absolute; top: 24px; left: -16px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 50px; padding: 10px 18px;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: var(--shadow-md);
+    }
+    .about-pill-icon {
+      width: 32px; height: 32px;
+      background: var(--teal-lt); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-pill-icon svg { width: 16px; height: 16px; stroke: var(--teal-dk); fill: none; stroke-width: 2; stroke-linecap: round; }
+    .about-pill-text { font-size: 0.78rem; font-weight: 600; color: var(--navy); }
+    .about-pill-sub { font-size: 0.68rem; color: var(--muted); font-weight: 400; }
+    /* Text side */
+    .about-copy { padding-top: 8px; }
+    .about-body {
+      font-size: 0.97rem; font-weight: 300; color: var(--muted);
+      line-height: 1.95; margin-bottom: 34px;
+    }
+    .about-body strong { color: var(--navy); font-weight: 600; }
+    .about-origin {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 20px 22px;
+      background: var(--teal-lt);
+      border-radius: var(--radius-md);
+      border-left: 3px solid var(--teal);
+    }
+    .origin-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: rgba(110,198,184,0.2); border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .origin-icon svg { width: 18px; height: 18px; stroke: var(--teal-dk); fill: none; stroke-width: 2; stroke-linecap: round; }
+    .origin-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--teal-dk); margin-bottom: 4px; }
+    .origin-value { font-size: 0.88rem; font-weight: 400; color: var(--navy); line-height: 1.6; }
+
+    /* ═══════════════════════════════════════
+       SERVICES
+    ═══════════════════════════════════════ */
+    #activities { background: var(--bg); }
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .activity-card {
+      background: var(--surface);
+      border: 1px solid rgba(110,198,184,0.12);
+      border-radius: var(--radius-lg);
+      padding: 38px 32px;
+      position: relative; overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform .28s cubic-bezier(.22,.68,0,1.2), box-shadow .28s, border-color .28s;
+      cursor: default;
+    }
+    .activity-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--blue));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .32s ease;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .activity-card:hover {
+      transform: translateY(-7px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(110,198,184,0.28);
+    }
+    .activity-card:hover::before { transform: scaleX(1); }
+    .act-icon-ring {
+      width: 52px; height: 52px;
+      border-radius: var(--radius-md);
+      background: var(--teal-lt);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 22px;
+      transition: background .25s;
+    }
+    .activity-card:hover .act-icon-ring { background: var(--teal); }
+    .act-icon-ring svg {
+      width: 24px; height: 24px;
+      stroke: var(--teal-dk); fill: none;
+      stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+      transition: stroke .25s;
+    }
+    .activity-card:hover .act-icon-ring svg { stroke: #fff; }
+    .act-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--navy); margin-bottom: 10px; line-height: 1.3;
+    }
+    .act-desc {
+      font-size: 0.85rem; font-weight: 300;
+      color: var(--muted); line-height: 1.82;
+    }
+
+    /* ═══════════════════════════════════════
+       EVENTS
+    ═══════════════════════════════════════ */
+    #events { background: linear-gradient(150deg, var(--navy) 0%, #243a43 100%); }
+    .events-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+    .event-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(110,198,184,0.14);
+      border-radius: var(--radius-lg);
+      padding: 34px 30px;
+      position: relative; overflow: hidden;
+      backdrop-filter: blur(4px);
+      transition: background .25s, transform .28s cubic-bezier(.22,.68,0,1.2), border-color .25s;
+    }
+    .event-card:hover {
+      background: rgba(110,198,184,0.07);
+      border-color: rgba(110,198,184,0.3);
+      transform: translateY(-5px);
+    }
+    .event-season {
+      position: absolute; top: 20px; right: 22px;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: rgba(110,198,184,0.12);
+      border: 1px solid rgba(110,198,184,0.22);
+      padding: 4px 12px; border-radius: 50px;
+    }
+    .event-icon-row {
+      width: 46px; height: 46px;
+      background: rgba(110,198,184,0.12);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .event-icon-row svg { width: 22px; height: 22px; stroke: var(--teal); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .event-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.12rem; font-weight: 600;
+      color: var(--teal); margin-bottom: 10px;
+    }
+    .event-desc { font-size: 0.84rem; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.8; }
+
+    /* ═══════════════════════════════════════
+       GALLERY
+    ═══════════════════════════════════════ */
+    #gallery { background: var(--surface); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+    .gallery-cell {
+      border-radius: var(--radius-lg); overflow: hidden;
+      position: relative; cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform .28s cubic-bezier(.22,.68,0,1.2), box-shadow .28s;
+    }
+    .gallery-cell:first-child { grid-column: span 2; aspect-ratio: 16/8; }
+    .gallery-cell:not(:first-child) { aspect-ratio: 4/3; }
+    .gallery-cell:hover { transform: scale(1.022); box-shadow: var(--shadow-lg); }
+    .gallery-fill {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gallery-fill svg { width: 52px; height: 52px; stroke: rgba(255,255,255,0.2); fill: none; stroke-width: 1; }
+    .gallery-cap {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(26,46,53,0.72));
+      color: #fff; font-size: 0.8rem; font-weight: 500;
+      padding: 28px 18px 14px; letter-spacing: 0.3px;
+      opacity: 0; transition: opacity .25s;
+    }
+    .gallery-cell:hover .gallery-cap { opacity: 1; }
+    .gc1 { 
+      background-image: url(madrasa-cover-photo/cover-photo.jpg);
+      background-position: center;
+      background-size: cover;
+    }
+    .gc2 {
+      background-image: url(muharram/muharm2.jpg);
+      background-position: center;
+      background-size: cover;
+    }
+    .gc3 {
+      background-image: url(milad-un-nabi/milad-1.jpg);
+      background-position: center;
+      background-size: cover;
+    }
+    .gc4 {
+      background-image: url(ramadan/ramadan\ 1.jpg);
+      background-position: center;
+      background-size: cover;
+    }
+    .gc5 {
+      background-image: url(eid-al-fitr/eid\ fitr.jpg);
+      background-position: center;
+      background-size: cover;
+    }
+    .gc6 {
+      background-image: url(ghadeer/ghadeer\ 1.jpg);
+      background-position: center;
+      background-size: cover;
+    }
+    .gc7 {
+      background-image: url(eid-adha/eid\ adha\ 1.jpg);
+      background-position: center;
+      background-size: cover;
+    }
+
+    /* ═══════════════════════════════════════
+       LEADERSHIP
+    ═══════════════════════════════════════ */
+    #leadership { background: var(--bg); }
+    .leader-card {
+      max-width: 580px; margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid rgba(110,198,184,0.16);
+      border-radius: var(--radius-xl);
+      padding: 60px 52px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      position: relative; overflow: hidden;
+    }
+    .leader-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--teal), var(--blue), var(--gold));
+    }
+    .leader-card::after {
+      content: '';
+      position: absolute; bottom: -70px; right: -70px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(110,198,184,0.06), transparent 70%);
+    }
+    .leader-avatar {
+      width: 160px; height: 160px; margin: 0 auto 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal-lt), var(--teal-mid));
+      border: 3px solid rgba(110,198,184,0.3);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 28px rgba(110,198,184,0.22);
+      background-image: url(leader-image/circle-image.jpg);
+      background-size: cover;
+    }
+    /* .leader-avatar svg { width: 52px; height: 52px; stroke: var(--teal-dk); fill: none; stroke-width: 1.5; stroke-linecap: round;
+      
+     } */
+    .leader-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 6px; line-height: 1.2;
+    }
+    .leader-role {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--teal-dk); margin-bottom: 24px;
+    }
+    .leader-bio { font-size: 0.92rem; font-weight: 300; color: var(--muted); line-height: 1.9; }
+
+    /* ═══════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════ */
+    #contact { background: linear-gradient(150deg, var(--navy) 0%, #1e333b 100%); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    /* Info column */
+    .contact-info { position: relative; z-index: 2; }
+    .contact-info-item {
+      display: flex; gap: 18px; align-items: flex-start;
+      margin-bottom: 32px;
+    }
+    .ci-icon-wrap {
+      width: 46px; height: 46px; flex-shrink: 0;
+      background: rgba(110,198,184,0.12);
+      border: 1px solid rgba(110,198,184,0.22);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ci-icon-wrap svg { width: 20px; height: 20px; stroke: var(--teal); fill: none; stroke-width: 2; stroke-linecap: round; }
+    .ci-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 4px; }
+    .ci-value { font-size: 0.92rem; font-weight: 300; color: rgba(255,255,255,0.78); line-height: 1.65; }
+    .ci-value a { color: rgba(255,255,255,0.78); transition: color .2s; }
+    .ci-value a:hover { color: var(--teal); }
+    .social-links { display: flex; gap: 12px; margin-top: 38px; }
+    .social-link {
+      display: flex; align-items: center; gap: 9px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.78); font-size: 0.84rem; font-weight: 500;
+      padding: 11px 22px; border-radius: var(--radius-md);
+      transition: background .2s, border-color .2s, color .2s, transform .2s;
+    }
+    .social-link svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+    .social-link:hover { background: rgba(110,198,184,0.12); border-color: rgba(110,198,184,0.35); color: var(--teal); transform: translateY(-2px); }
+    /* Form */
+    .contact-form {
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-xl);
+      padding: 42px 38px;
+      backdrop-filter: blur(8px);
+      position: relative; z-index: 2;
+    }
+    .form-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: #fff; margin-bottom: 28px;
+    }
+    .form-row { margin-bottom: 18px; }
+    .form-row label {
+      display: block; font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 1.8px; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin-bottom: 8px;
+    }
+    .form-row input, .form-row textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-sm);
+      color: #fff; font-size: 0.9rem; font-weight: 300;
+      padding: 13px 16px; font-family: 'Poppins', sans-serif;
+      transition: border-color .2s, background .2s; outline: none; resize: vertical;
+    }
+    .form-row input::placeholder, .form-row textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .form-row input:focus, .form-row textarea:focus {
+      border-color: var(--teal); background: rgba(110,198,184,0.06);
+    }
+    .form-row textarea { min-height: 105px; }
+    .form-submit {
+      width: 100%; margin-top: 6px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dk));
+      color: #fff; font-family: 'Poppins', sans-serif;
+      font-weight: 600; font-size: 0.9rem;
+      padding: 14px; border-radius: var(--radius-sm);
+      border: none; cursor: pointer;
+      box-shadow: 0 6px 20px rgba(110,198,184,0.28);
+      transition: opacity .2s, transform .2s;
+    }
+    .form-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+    .form-ok {
+      display: none; margin-top: 16px;
+      background: rgba(110,198,184,0.12);
+      border: 1px solid rgba(110,198,184,0.3);
+      border-radius: var(--radius-sm);
+      color: var(--teal); font-size: 0.86rem; font-weight: 500;
+      padding: 13px 18px; text-align: center;
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    footer { background: #080f12; padding: 60px 32px 28px; }
+    .footer-wrap { max-width: 1180px; margin: 0 auto; }
+    .footer-top {
+      display: grid; grid-template-columns: 2.2fr 1fr 1fr;
+      gap: 48px; padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 28px;
+    }
+    .footer-brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 10px;
+    }
+    .footer-brand-name span { display: block; font-family: 'Poppins', sans-serif; font-size: 0.65rem; font-weight: 500; color: var(--teal); letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
+    .footer-tagline { font-size: 0.82rem; font-weight: 300; color: rgba(255,255,255,0.35); line-height: 1.85; max-width: 270px; margin-bottom: 22px; }
+    .footer-socials a { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); border-radius: var(--radius-sm); margin-right: 8px; transition: background .2s, border-color .2s; }
+    .footer-socials a svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.45); fill: none; stroke-width: 2; stroke-linecap: round; }
+    .footer-socials a:hover { background: rgba(110,198,184,0.12); border-color: rgba(110,198,184,0.25); }
+    .footer-socials a:hover svg { stroke: var(--teal); }
+    .footer-col h5 { font-size: 0.68rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--teal); margin-bottom: 18px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { font-size: 0.82rem; font-weight: 300; color: rgba(255,255,255,0.4); transition: color .2s; }
+    .footer-col ul li a:hover { color: rgba(255,255,255,0.85); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .footer-copy { font-size: 0.76rem; font-weight: 300; color: rgba(255,255,255,0.25); }
+    .footer-copy span { color: var(--teal); }
+    .footer-salawat { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: rgba(255,255,255,0.18); font-style: italic; }
+
+    /* ═══════════════════════════════════════
+       SCROLL REVEAL
+    ═══════════════════════════════════════ */
+    .sr {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .72s cubic-bezier(.22,.68,0,1), transform .72s cubic-bezier(.22,.68,0,1);
+    }
+    .sr.from-l { transform: translateX(-32px); }
+    .sr.from-r { transform: translateX(32px); }
+    .sr.visible { opacity: 1; transform: none; }
+
+    /* ═══════════════════════════════════════
+       KEYFRAMES
+    ═══════════════════════════════════════ */
+    @keyframes hero-in {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse-ring {
+      0%,100% { box-shadow: 0 0 0 3px rgba(110,198,184,0.25); }
+      50%      { box-shadow: 0 0 0 6px rgba(110,198,184,0.10); }
+    }
+    @keyframes scroll-nub {
+      0%,100% { transform: translateY(0); opacity: 1; }
+      75%      { transform: translateY(16px); opacity: 0; }
+    }
+    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    /* ═══════════════════════════════════════
+   ██████  RESPONSIVE  ██████
+═══════════════════════════════════════ */
+
+/* ── Large tablets / small desktops (≤1100px) ── */
+@media (max-width: 1100px) {
+  .nav-wrap { padding: 0 24px; }
+  .about-grid { gap: 48px; }
+  .activities-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-grid { gap: 44px; }
+}
+
+/* ── Tablets landscape (≤900px) ── */
+@media (max-width: 900px) {
+  .section { padding: 88px 28px; }
+  .nav-wrap { padding: 0 20px; }
+  .brand-name { font-size: 0.88rem; }
+  .nav-menu { gap: 0; }
+  .nav-menu a { padding: 7px 11px; font-size: 0.8rem; }
+  #home { padding: 130px 24px 90px; }
+  .hero-ornament { width: 320px; height: 320px; right: -40px; top: 60px; }
+  .hero-ornament-inner { width: 220px; height: 220px; top: 110px; right: 10px; }
+  .hero-sub { font-size: 0.95rem; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .stat-cell:nth-child(2) { border-right: none; }
+  .stat-cell:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.08); }
+  .stat-cell:nth-child(4) { border-right: none; border-top: 1px solid rgba(255,255,255,0.08); }
+  .about-grid { grid-template-columns: 1fr; gap: 56px; }
+  .about-visual { max-width: 500px; margin: 0 auto; }
+  .about-pill { left: 0; }
+  .activities-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .events-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .gallery-cell:first-child { grid-column: span 2; aspect-ratio: 16/7; }
+  .gallery-cell:not(:first-child) { aspect-ratio: 1/1; }
+  .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
+  .footer-col:first-child { grid-column: span 2; }
+}
+
+/* ── Tablets portrait (≤700px) ── */
+@media (max-width: 700px) {
+  .section { padding: 72px 20px; }
+  .nav-menu { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-wrap { height: 64px; padding: 0 20px; }
+  .brand-mark { width: 72px; height: 72px; }
+  .brand-name { font-size: 0.82rem; }
+  .brand-sub { font-size: 0.58rem; }
+  #home { padding: 110px 20px 80px; }
+  .hero-ornament { display: none; }
+  .hero-ornament-inner { display: none; }
+  .hero-eyebrow { font-size: 0.65rem; padding: 5px 14px; gap: 8px; }
+  .hero-arabic { font-size: clamp(1.1rem, 4vw, 1.6rem); }
+  .hero-title { font-size: clamp(1.8rem, 6.5vw, 2.8rem); }
+  .hero-sub { font-size: 0.9rem; margin-bottom: 36px; }
+  .btn { padding: 12px 26px; font-size: 0.84rem; }
+  .stats-strip { padding: 44px 20px; }
+  .stat-number { font-size: 2.2rem; }
+  .stat-label { font-size: 0.65rem; letter-spacing: 1.5px; }
+  .about-visual { max-width: 100%; }
+  .about-pill { left: 0; top: 16px; }
+  .about-badge { right: 16px; font-size: 0.72rem; padding: 10px 16px; }
+  .about-body { font-size: 0.92rem; }
+  .activities-grid { grid-template-columns: 1fr; gap: 18px; }
+  .activity-card { padding: 30px 24px; }
+  .events-grid { grid-template-columns: 1fr; gap: 16px; }
+  .event-card { padding: 28px 24px; }
+  .event-season { font-size: 0.58rem; padding: 3px 10px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .gallery-cell:first-child { grid-column: span 2; aspect-ratio: 4/3; }
+  .leader-card { padding: 44px 28px; }
+  .leader-avatar { width: 130px; height: 130px; }
+  .leader-name { font-size: 1.45rem; }
+  .contact-form { padding: 32px 24px; }
+  .social-links { flex-direction: column; gap: 10px; }
+  .social-link { justify-content: center; }
+  .footer-top { grid-template-columns: 1fr; gap: 32px; }
+  .footer-col:first-child { grid-column: auto; }
+  footer { padding: 48px 20px 24px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .footer-salawat { font-size: 0.8rem; }
+}
+
+/* ── Mobile (≤480px) ── */
+@media (max-width: 480px) {
+  .section { padding: 60px 16px; }
+  .nav-wrap { padding: 0 16px; height: 60px; }
+  .brand-mark { width: 58px; height: 58px; }
+  .brand-name { font-size: 0.76rem; }
+  .brand-sub { display: none; }
+  #home { padding: 100px 16px 70px; }
+  .hero-texture { background-size: 28px 28px; }
+  .hero-eyebrow { font-size: 0.6rem; letter-spacing: 1.6px; padding: 5px 12px; margin-bottom: 20px; }
+  .hero-arabic { font-size: clamp(1rem, 5vw, 1.4rem); margin-bottom: 14px; }
+  .hero-title { font-size: clamp(1.55rem, 7vw, 2.2rem); margin-bottom: 16px; }
+  .hero-sub { font-size: 0.86rem; max-width: 100%; margin-bottom: 30px; }
+  .hero-actions { gap: 10px; }
+  .btn { padding: 11px 22px; font-size: 0.82rem; }
+  .hero-scroll-cue { bottom: 24px; }
+  .stats-strip { padding: 36px 16px; }
+  .stats-inner { grid-template-columns: 1fr 1fr; gap: 0; }
+  .stat-cell { padding: 14px 12px; }
+  .stat-number { font-size: 1.9rem; }
+  .stat-label { font-size: 0.6rem; letter-spacing: 1px; }
+  .about-card { aspect-ratio: 4/3; }
+  .about-pill { display: none; }
+  .about-badge { bottom: -14px; right: 12px; font-size: 0.68rem; padding: 8px 14px; }
+  .about-origin { flex-direction: column; gap: 10px; }
+  .about-copy { padding-top: 28px; }
+  .section-header-block { margin-bottom: 40px; }
+  .activity-card { padding: 26px 20px; }
+  .act-icon-ring { width: 44px; height: 44px; margin-bottom: 16px; }
+  .act-icon-ring svg { width: 20px; height: 20px; }
+  .act-title { font-size: 1.05rem; }
+  .act-desc { font-size: 0.82rem; }
+  .event-card { padding: 24px 20px; padding-top: 52px; }
+  .event-season { top: 16px; right: 16px; font-size: 0.56rem; letter-spacing: 1.2px; }
+  .event-title { font-size: 1rem; }
+  .event-desc { font-size: 0.8rem; }
+  .gallery-grid { grid-template-columns: 1fr; gap: 10px; }
+  .gallery-cell:first-child { grid-column: span 1; aspect-ratio: 4/3; }
+  .gallery-cell { border-radius: var(--radius-md); }
+  .gallery-cap { opacity: 1; }
+  .leader-card { padding: 36px 20px; border-radius: var(--radius-lg); }
+  .leader-avatar { width: 110px; height: 110px; margin-bottom: 20px; }
+  .leader-name { font-size: 1.25rem; }
+  .leader-role { font-size: 0.68rem; letter-spacing: 1.8px; }
+  .leader-bio { font-size: 0.86rem; }
+  .contact-form { padding: 26px 18px; border-radius: var(--radius-lg); }
+  .form-heading { font-size: 1.25rem; margin-bottom: 20px; }
+  .form-row input, .form-row textarea { font-size: 0.85rem; padding: 11px 14px; }
+  .contact-info-item { gap: 14px; margin-bottom: 24px; }
+  .ci-icon-wrap { width: 40px; height: 40px; }
+  .ci-icon-wrap svg { width: 17px; height: 17px; }
+  .ci-value { font-size: 0.86rem; }
+  .social-link { padding: 10px 18px; font-size: 0.8rem; }
+  footer { padding: 40px 16px 20px; }
+  .footer-brand-name { font-size: 0.95rem; }
+  .footer-tagline { font-size: 0.78rem; max-width: 100%; }
+  .footer-col h5 { font-size: 0.63rem; }
+  .footer-col ul li a { font-size: 0.78rem; }
+  .footer-copy { font-size: 0.7rem; }
+  .footer-salawat { font-size: 0.75rem; }
+  .nav-drawer { padding: 10px 16px 16px; }
+  .nav-drawer a { font-size: 0.88rem; padding: 12px 0; }
+}
+
+/* ── Very small screens (≤360px) ── */
+@media (max-width: 360px) {
+  .section { padding: 52px 14px; }
+  .nav-wrap { padding: 0 14px; }
+  .hero-title { font-size: clamp(1.4rem, 8vw, 1.9rem); }
+  .hero-eyebrow { display: none; }
+  .hero-arabic { font-size: 1rem; }
+  .btn { padding: 10px 18px; font-size: 0.78rem; }
+  .stat-number { font-size: 1.6rem; }
+  .activity-card { padding: 22px 16px; }
+  .event-card { padding: 20px 16px; padding-top: 50px; }
+  .leader-card { padding: 30px 16px; }
+  .contact-form { padding: 22px 14px; }
+  .about-badge { font-size: 0.64rem; padding: 7px 12px; }
+}
+
+/* ── Touch devices: disable hover lifts ── */
+@media (hover: none) {
+  .activity-card:hover { transform: none; box-shadow: var(--shadow-sm); }
+  .event-card:hover { transform: none; }
+  .gallery-cell:hover { transform: none; }
+  .gallery-cap { opacity: 1; }
+  .btn-solid:hover { transform: none; }
+  .btn-ghost:hover { transform: none; }
+}
+
+/* ── Landscape phones ── */
+@media (max-width: 768px) and (orientation: landscape) {
+  #home { min-height: auto; padding: 100px 24px 60px; }
+  .hero-scroll-cue { display: none; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- ══════════ NAVBAR ══════════ -->
+  <nav id="navbar">
+    <div class="nav-wrap">
+      <div class="brand">
+        <div class="brand-mark">
+          <!-- Crescent SVG -->
+          <!-- <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="rgba(255,255,255,0.9)"/></svg> -->
+           <img src="Madrasa Logo 3.png" alt="">
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">Ali ibn-e-Abitalib Islamic Institute</div>
+          <div class="brand-sub">Quetta · Pakistan</div>
+        </div>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#activities">Activities</a></li>
+        <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-drawer" id="navDrawer">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#events">Events</a>
+      <a href="#activities">Activities</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+  </nav>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section id="home">
+    <div class="hero-canvas"></div>
+    <div class="hero-texture"></div>
+    <div class="hero-ornament"></div>
+    <div class="hero-ornament-inner"></div>
+    <div class="hero-body">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Established 1992 · Quetta, Pakistan
+      </div>
+      <p class="hero-arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+      <div class="hero-rule"></div>
+      <h1 class="hero-title">
+        Welcome to the Official Website of<br>
+        <span class="highlight">Ali ibn-e-Abitalib</span><br>
+        Islamic Institute
+      </h1>
+      <p class="hero-sub">
+        A centre for Islamic learning, lectures, and community gatherings in Quetta, Pakistan.
+      </p>
+      <div class="hero-actions">
+        <a href="#about" class="btn btn-solid">Discover More</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-scroll-cue">
+      <div class="scroll-pill"><div class="scroll-nub"></div></div>
+    </div>
+  </section>
+
+  <!-- ══════════ STATS ══════════ -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat-cell sr"><div class="stat-number">1992</div><div class="stat-label">Year Founded</div></div>
+      <div class="stat-cell sr"><div class="stat-number">7+</div><div class="stat-label">Years of Service</div></div>
+      <div class="stat-cell sr"><div class="stat-number">6+</div><div class="stat-label">Core Programs</div></div>
+      <div class="stat-cell sr"><div class="stat-number">∞</div><div class="stat-label">Community Impact</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════ ABOUT ══════════ -->
+  <section class="section section-white" id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Visual -->
+        <div class="about-visual sr from-l">
+          <div class="about-pill">
+            <div class="about-pill-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div>
+              <div class="about-pill-text">Islamic Education</div>
+              <div class="about-pill-sub">Quran · Lectures · Youth</div>
+            </div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-pattern"></div>
+            <div class="about-card-center">
+              <!-- <svg class="about-mosque-icon" viewBox="0 0 120 120" fill="none" stroke="var(--teal-dk)" stroke-width="1.5"> -->
+                <rect x="10" y="70" width="100" height="40" rx="2"/>
+                <rect x="25" y="55" width="30" height="55"/>
+                <rect x="65" y="55" width="30" height="55"/>
+                <path d="M40 55 C40 40 80 40 80 55"/>
+                <circle cx="60" cy="30" r="12"/>
+                <line x1="60" y1="10" x2="60" y2="18"/>
+                <path d="M48 55 L60 30 L72 55"/>
+              </svg>
+            </div>
+          </div>
+          <div class="about-badge">Est. 1992 · Quetta, Pakistan</div>
+        </div>
+
+        <!-- Copy -->
+        <div class="about-copy sr from-r">
+          <div class="section-header-block">
+            <div class="divider-bar"></div>
+            <div class="section-label">Our Story</div>
+            <h2 class="section-heading">About the Institute</h2>
+            <p class="section-lead">
+              A place of learning, reflection, and community — rooted in faith and guided by scholarship.
+            </p>
+          </div>
+          <p class="about-body">
+            Ali ibn-e-Abitalib Islamic Institute, established in 2018 in Quetta, Pakistan, is dedicated to promoting Islamic knowledge and community engagement. The institute hosts Islamic lectures, Quran lessons, youth programs, and special events according to the Islamic calendar. Under the guidance of <strong>Allama Muhammad Kazim Behjati</strong>, the institute serves as a place where people gather to learn and strengthen their understanding of Islam.
+          </p>
+          <div class="about-origin">
+            <div class="origin-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </div>
+            <div>
+              <div class="origin-label">Location</div>
+              <div class="origin-value">Madrasa Road, Hazara Town, Quetta, Balochistan, Pakistan</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ ACTIVITIES ══════════ -->
+  <section class="section section-light" id="activities">
+    <div class="container">
+      <div class="section-header-block section-header-center sr">
+        <div class="divider-bar" style="margin:0 auto 12px;"></div>
+        <div class="section-label">What We Offer</div>
+        <h2 class="section-heading">Our Services</h2>
+        <p class="section-lead">Serving the community through education, worship, and togetherness.</p>
+      </div>
+      <div class="activities-grid">
+
+        <div class="activity-card sr">
+          <div class="act-icon-ring">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div class="act-title">Hozawi Duroos (Islamic University)</div>
+          <div class="act-desc">A structured Islamic academic program offering in-depth studies in Quran, Hadith, and Arabic.</div>
+        </div>
+
+        <div class="activity-card sr">
+          <div class="act-icon-ring">
+           <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div class="act-title">Dar ul Quran</div>
+          <div class="act-desc">Dar ul Quran
+          Dedicated to the preservation and recitation of the Holy Quran.</div>
+        </div>
+
+        <div class="activity-card sr">
+          <div class="act-icon-ring">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <div class="act-title">Online Quran and Ma'arif Classes</div>
+          <div class="act-desc">
+          Learn the Quran and Islamic knowledge from the comfort of your home through our live, interactive online sessions.</div>
+        </div>
+
+        <div class="activity-card sr">
+          <div class="act-icon-ring">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="act-title">Tasneem Montessori School</div>
+          <div class="act-desc">A nurturing early childhood environment blended with Islamic values and Quranic foundations from the very start.</div>
+        </div>
+
+        <div class="activity-card sr">
+          <div class="act-icon-ring">
+            <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div class="act-title">Computer and Skills Academy</div>
+          <div class="act-desc">
+          Empowering students and community members with modern digital and vocational skills.</div>
+        </div>
+
+        <div class="activity-card sr">
+          <div class="act-icon-ring">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="act-title">Islamic Gatherings and Events</div>
+          <div class="act-desc">Regular community gatherings, lectures, and spiritual programs that bring hearts together.</div>
+        </div>
+
+        <div class="activity-card sr">
+          <div class="act-icon-ring">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="act-title">Educational Seminars and Workshops</div>
+          <div class="act-desc">Focused short-term programs on relevant Islamic and life topics, designed to educate, inspire, and equip attendees.</div>
+        </div>
+
+        <div class="activity-card sr">
+          <div class="act-icon-ring">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="act-title">Welfare Section</div>
+          <div class="act-desc">Serving those in need through Zakat, Sadaqah, and community support programs.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ EVENTS ══════════ -->
+  <section class="section section-navy" id="events">
+    <div class="container">
+      <div class="section-header-block section-header-center sr">
+        <div class="divider-bar divider-bar-gold" style="margin:0 auto 12px;"></div>
+        <div class="section-label section-label-light">Islamic Calendar</div>
+        <h2 class="section-heading section-heading-light">Events &amp; Programs</h2>
+        <p class="section-lead section-lead-light">Events organised according to the Islamic calendar throughout the year.</p>
+      </div>
+      <div class="events-grid">
+
+        <div class="event-card sr">
+          <div class="event-season">Muharram</div>
+          <div class="event-icon-row">
+            <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </div>
+          <div class="event-title">Muharram Gatherings</div>
+          <div class="event-desc">The first month of the Islamic calendar, remembered for the sacrifice of Hussain ibn Ali at the Battle of Karbala.</div>
+        </div>
+
+        <div class="event-card sr">
+          <div class="event-season">Eid Milad-un-Nabi</div>
+          <div class="event-icon-row">
+            <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <div class="event-title">Eid Milad-un-Nabi Events</div>
+          <div class="event-desc">Eid Milad-un-Nabi celebrates the birth of Muhammad, the last Prophet of Islam.</div>
+        </div>
+
+        <div class="event-card sr">
+          <div class="event-season">Ramadan</div>
+          <div class="event-icon-row">
+            <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </div>
+          <div class="event-title">Ramadan gatherings</div>
+          <div class="event-desc">Ramadan is the holy month when Muslims fast, pray more, and seek closeness to Allah.</div>
+        </div>
+
+        <div class="event-card sr">
+          <div class="event-season">Eid al-Fitr</div>
+          <div class="event-icon-row">
+            <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <div class="event-title">Eid al-Fitr Events</div>
+          <div class="event-desc">Eid al-Fitr celebrates the end of Ramadan with prayers, charity, and joyful gatherings.</div>
+        </div>
+
+        <div class="event-card sr">
+          <div class="event-season">Eid-e-Ghadeer</div>
+          <div class="event-icon-row">
+           <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <div class="event-title">Eid-e-Ghadeer Events</div>
+          <div class="event-desc">Eid-e-Ghadeer commemorates the event when Muhammad declared Ali as his successor at Ghadir Khumm.</div>
+        </div>
+
+        <div class="event-card sr">
+          <div class="event-season">Eid al-Adha</div>
+          <div class="event-icon-row">
+            <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </div>
+          <div class="event-title">Eid al-Adha Events</div>
+          <div class="event-desc">Eid al-Adha honors the sacrifice of Ibrahim and teaches obedience and generosity.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ GALLERY ══════════ -->
+  <section class="section section-white" id="gallery">
+    <div class="container">
+      <div class="section-header-block section-header-center sr">
+        <div class="divider-bar" style="margin:0 auto 12px;"></div>
+        <div class="section-label">Gallery</div>
+        <h2 class="section-heading">Moments from the Institute</h2>
+        <p class="section-lead">A glimpse into our gatherings, events, and community programs.</p>
+      </div>
+      <div class="gallery-grid sr">
+        <div class="gallery-cell gc1">
+          <div class="gallery-fill">
+            
+          </div>
+          <div class="gallery-cap">Institute Building · Quetta</div>
+        </div>
+        <div class="gallery-cell gc2">
+          <div class="gallery-fill">
+            
+          </div>
+          <div class="gallery-cap">Muharram Sessions</div>
+        </div>
+        <div class="gallery-cell gc3">
+          <div class="gallery-fill">
+            
+          </div>
+          <div class="gallery-cap">Eid Milad-un-Nabi</div>
+        </div>
+        <div class="gallery-cell gc4">
+          <div class="gallery-fill">
+            
+          </div>
+          <div class="gallery-cap">Ramadan Night Sessions</div>
+        </div>
+        <div class="gallery-cell gc5">
+          <div class="gallery-fill">
+            
+          </div>
+          <div class="gallery-cap">Eid al-Fitr</div>
+        </div>
+        <div class="gallery-cell gc6">
+          <div class="gallery-fill">
+            
+          </div>
+          <div class="gallery-cap">Eid-e-Ghadeer</div>
+        </div>
+        <div class="gallery-cell gc7">
+          <div class="gallery-fill">
+            
+          </div>
+          <div class="gallery-cap">Eid al-Adha</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ LEADERSHIP ══════════ -->
+  <section class="section section-light" id="leadership">
+    <div class="container">
+      <div class="section-header-block section-header-center sr">
+        <div class="divider-bar divider-bar-gold" style="margin:0 auto 12px;"></div>
+        <div class="section-label">Leadership</div>
+        <h2 class="section-heading">Our Founder</h2>
+        <p class="section-lead">Guided by scholarly wisdom and a lifelong dedication to the community.</p>
+      </div>
+      <div class="leader-card sr">
+        <div class="leader-avatar">
+          <!-- <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> -->
+        </div>
+        <h3 class="leader-name">Allama Muhammad Kazim Behjati</h3>
+        <div class="leader-role">Founder &amp; Head of the Institute</div>
+        <p class="leader-bio">Under the visionary leadership of Allama Muhammad Kazim Behjati, the Ali ibn-e-Abitalib Islamic Institute was founded in 1992 with a mission to provide authentic Islamic education and foster a strong sense of community. His dedication to scholarship, spiritual guidance, and community service has been the driving force behind the institute's growth and impact in Quetta, Balochistan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTACT ══════════ -->
+  <section class="section section-navy" id="contact">
+    <div class="container">
+      <div class="section-header-block section-header-center sr">
+        <div class="divider-bar" style="margin:0 auto 12px; background: linear-gradient(90deg,var(--teal),var(--blue));"></div>
+        <div class="section-label section-label-light">Get In Touch</div>
+        <h2 class="section-heading section-heading-light">Contact Us</h2>
+        <p class="section-lead section-lead-light">We welcome all enquiries, visits, and connections from the community.</p>
+      </div>
+      <div class="contact-grid">
+
+        <!-- Info -->
+        <div class="contact-info sr from-l">
+          <div class="contact-info-item">
+            <div class="ci-icon-wrap">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l1.91-1.9a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="ci-label">Phone</div>
+              <div class="ci-value"><a href="tel:+923158455594">+92 315 8455594</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon-wrap">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="ci-label">Email</div>
+              <div class="ci-value"><a href="mailto:aislamicinstitution@gmail.com">aislamicinstitution@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon-wrap">
+              <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="ci-label">Address</div>
+              <div class="ci-value">Madrasa Road, Hazara Town,<br>Quetta, Balochistan, Pakistan</div>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="https://www.facebook.com/aliibneabitalib.pk" class="social-link">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              Facebook
+            </a>
+            <a href="https://www.youtube.com/@allamamuhammadkazimbehjati7069" class="social-link">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              YouTube
+            </a>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form sr from-r">
+          <div class="form-heading">Send a Message</div>
+          <div class="form-row">
+            <label>Your Name</label>
+            <input type="text" id="f-name" placeholder="Enter your full name" />
+          </div>
+          <div class="form-row">
+            <label>Email Address</label>
+            <input type="email" id="f-email" placeholder="Enter your email address" />
+          </div>
+          <div class="form-row">
+            <label>Subject</label>
+            <input type="text" id="f-subject" placeholder="What is this regarding?" />
+          </div>
+          <div class="form-row">
+            <label>Message</label>
+            <textarea id="f-msg" placeholder="Write your message here…"></textarea>
+          </div>
+          <button class="form-submit" onclick="submitForm()">Send Message</button>
+          <div class="form-ok" id="formOk">
+            JazakAllah Khair — your message has been received. We will be in touch soon.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer>
+    <div class="footer-wrap">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand-name">
+            Ali ibn-e-Abitalib Islamic Institute
+            <span>Quetta, Pakistan</span>
+          </div>
+          <p class="footer-tagline">Promoting Islamic knowledge and community engagement since 1992.</p>
+          <div class="footer-socials">
+            <a href="https://www.facebook.com/aliibneabitalib.pk" title="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@allamamuhammadkazimbehjati7069" title="YouTube">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#activities">Activities</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="tel:+923158455594">+92 315 8455594</a></li>
+            <li><a href="mailto:aislamicinstitution@gmail.com">aislamicinstitution@gmail.com</a></li>
+            <li><a href="#contact">Hazara Town, Quetta</a></li>
+            <li><a href="#contact">Balochistan, Pakistan</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 <span>Ali ibn-e-Abitalib Islamic Institute</span>. All rights reserved.</p>
+        <p class="footer-salawat">اَللّٰهُمَّ صَلِّ عَلٰی مُحَمَّدٍ وَّ اٰلِ مُحَمَّدٍ</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════ JAVASCRIPT ══════════ -->
+  <script>
+    /* ── Navbar scroll state ── */
+    const navbar = document.getElementById('navbar');
+    const navLinks = document.querySelectorAll('.nav-menu a');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 24);
+
+      // Active link highlight
+      const sections = document.querySelectorAll('section[id]');
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 100) current = sec.id;
+      });
+      navLinks.forEach(a => {
+        const href = a.getAttribute('href').replace('#', '');
+        a.classList.toggle('active', href === current);
+      });
+    }, { passive: true });
+
+    /* ── Mobile hamburger ── */
+    const toggle = document.getElementById('navToggle');
+    const drawer = document.getElementById('navDrawer');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      drawer.classList.toggle('open');
+    });
+    drawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        drawer.classList.remove('open');
+      });
+    });
+
+    /* ── Scroll reveal ── */
+    const srObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const siblings = Array.from(entry.target.parentElement.querySelectorAll('.sr:not(.visible)'));
+        // stagger siblings that are in the same parent
+        let delay = 0;
+        siblings.forEach(el => {
+          el.style.transitionDelay = delay.toFixed(2) + 's';
+          el.classList.add('visible');
+          delay += 0.1;
+          srObserver.unobserve(el);
+        });
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.sr').forEach(el => srObserver.observe(el));
+
+    /* ── Contact form ── */
+    function submitForm() {
+      const name  = document.getElementById('f-name').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      const msg   = document.getElementById('f-msg').value.trim();
+      if (!name || !email || !msg) {
+        alert('Please fill in your name, email address, and message.');
+        return;
+      }
+      const ok = document.getElementById('formOk');
+      ok.style.display = 'block';
+      ['f-name','f-email','f-subject','f-msg'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      setTimeout(() => ok.style.display = 'none', 6000);
+    }
+  </script>
+
+</body>
+</html>
